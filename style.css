@@ -1,0 +1,293 @@
+/* ---------- Base & variables ---------- */
+:root{
+  --bg:#0a0000;
+  --panel:#8d30d6;        /* purple secondScreen */
+  --card-inner: rgba(255,255,255,0.02);
+  --text: #f3e9e0;
+  --muted: #e7dfe8;
+  --container-w: 1100px;
+}
+
+*{ box-sizing: border-box; margin:0; padding:0; }
+html,body{ height:100%; }
+body{
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  scroll-behavior:smooth;
+}
+
+/* common container used to mimic your secondScreen look */
+.container{ width:90%; max-width:var(--container-w); margin: 0 auto; padding: 18px 0; }
+.secondScreen{ background: var(--panel); border-radius: 18px; padding: 20px; margin: 18px auto; width: 90%; }
+
+/* header */
+/* Sticky Header with Solid Background */
+.site-header{
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10, 0, 0, 0.95);   /* solid dark background */
+  backdrop-filter: blur(6px);         /* nice glassy effect */
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding: 12px 0;
+}
+
+.header-inner{ display:flex; align-items:center; justify-content:space-between; gap:12px; width:90%; max-width:var(--container-w); margin:0 auto; }
+.brand{ font-weight:700; font-size:1.05rem; color:var(--text); }
+
+/* nav */
+.nav-list{ display:flex; gap:18px; list-style:none; }
+.nav-list a{ color:var(--text); text-decoration:none; padding:6px 10px; border-radius:8px; font-weight:600; }
+.nav-list a:hover{ background: rgba(0,0,0,0.08); }
+
+/* mobile nav toggle */
+.nav-toggle{ display:none; background:transparent; border:0; cursor:pointer; padding:6px; border-radius:8px; }
+.hamburger{ width:22px; height:2px; background:var(--text); display:block; position:relative; }
+.hamburger::before, .hamburger::after{ content:""; position:absolute; left:0; width:22px; height:2px; background:var(--text); }
+.hamburger::before{ top:-7px; } .hamburger::after{ top:7px; }
+
+/* sections */
+.section{ padding: 18px 0; }
+.container-inner{ width:90%; max-width:var(--container-w); margin:0 auto; }
+
+/* ABOUT */
+.about-grid{ display:grid; grid-template-columns: 1fr 340px; gap:18px; align-items:center; }
+.name{ font-size:1.25rem; margin-bottom:6px; }
+.lead{ color:var(--muted); margin-bottom:10px; }
+.profile{ width:320px; height:320px; object-fit:cover; border-radius:12px; border:3px solid rgba(0,0,0,0.08); }
+
+/* RESUME card */
+.card{ background: var(--card-inner); border-radius: 12px; padding:14px; border:1px solid rgba(255,255,255,0.03); box-shadow:0 8px 20px rgba(0,0,0,0.35); }
+.resume-card iframe{ width:100%; height:600px; border-radius:6px; }
+
+/* button */
+.btn{ display:inline-block; background:rgba(0,0,0,0.9); color:var(--text); padding:10px 16px; border-radius:10px; text-decoration:none; font-weight:600; }
+
+/* ---------- Projects Panel (scoped and robust) ---------- */
+#projects-panel .panel-inner{ padding: 14px; }
+#projects-panel .proj-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  align-items: start;
+  width:100%;
+}
+
+/* card container (white rounded outline) */
+#projects-panel .proj-card{
+  border-radius:14px;
+  padding:10px;
+  background: var(--card-inner);
+  border: 3px solid rgba(255,255,255,0.95);
+  min-height:100px;
+  display:flex;
+  align-items:flex-start;
+  transition: transform .22s cubic-bezier(.2,.9,.2,1), box-shadow .22s ease;
+  position:relative;
+  overflow:visible;
+}
+
+/* inner clickable area */
+#projects-panel .proj-link{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  text-decoration:none;
+  color:inherit;
+  padding:6px;
+  border-radius:10px;
+  width:100%;
+}
+
+/* icon + text */
+#projects-panel .proj-icon{ width:28px; height:28px; color:var(--accent, #7c5cff); flex-shrink:0; transition:transform .22s ease, filter .22s ease; }
+#projects-panel .proj-text{ display:flex; flex-direction:column; align-items:flex-start; }
+#projects-panel .proj-title{ font-weight:700; font-size:1rem; line-height:1.05; }
+#projects-panel .proj-sub{ font-size:0.86rem; color: rgba(255,255,255,0.95); opacity:0.95; }
+
+/* hover / focus */
+#projects-panel .proj-card:hover, #projects-panel .proj-card:focus-within{
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.28);
+  z-index:5;
+}
+#projects-panel .proj-card:hover::after, #projects-panel .proj-card:focus-within::after{
+  content:"";
+  position:absolute;
+  inset:-6px;
+  border-radius:18px;
+  pointer-events:none;
+  box-shadow: 0 12px 28px var(--glow, rgba(124,92,255,0.12));
+}
+#projects-panel .proj-card:hover .proj-icon, #projects-panel .proj-card:focus-within .proj-icon{
+  transform: translateY(-4px) scale(1.06);
+  filter: drop-shadow(0 10px 20px var(--glow, rgba(124,92,255,0.12)));
+}
+
+/* ---------- Connect / social ---------- */
+.site-footer{ margin-top:18px; padding:18px 0 40px 0; }
+.site-footer .secondScreen{ padding:16px; }
+.social{ display:flex; gap:14px; align-items:center; margin-top:12px; }
+.social a{ color:var(--text); display:inline-flex; align-items:center; justify-content:center; text-decoration:none; }
+.social a svg{ display:block; }
+
+/* copyright */
+copyright{ display:block; }
+copyright small{ color:var(--muted); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px){
+  .about-grid{ grid-template-columns:1fr 260px; }
+}
+@media (max-width: 760px){
+  .about-grid{ grid-template-columns:1fr; text-align:center; }
+  .profile{ width:220px; height:220px; margin:0 auto; }
+  .nav-list{ display:none; position:absolute; right:12px; top:70px; background: rgba(10,10,12,0.95); border-radius:10px; padding:12px; box-shadow:0 8px 24px rgba(0,0,0,0.6); }
+  .nav-list.show{ display:flex; flex-direction:column; gap:10px; min-width:160px; }
+  .nav-toggle{ display:inline-block; }
+  .secondScreen{ width:95%; margin:12px auto; }
+}
+@media (max-width: 520px){
+  #projects-panel .proj-grid{ grid-template-columns: 1fr; gap:12px; }
+  #projects-panel .proj-card{ min-height: 88px; padding:8px; }
+  #projects-panel .proj-icon{ width:24px; height:24px; }
+}
+
+/* HEADER: sticky rounded bar matching secondScreen + nav hover */
+.site-header {
+  position: sticky;
+  top: 8px;
+  z-index: 120;
+  background: transparent;
+  padding: 8px 0;
+}
+
+/* Visual "bar" that matches secondScreen (centered, rounded) */
+.header-inner{
+  width: 90%;
+  max-width: var(--container-w);
+  margin: 0 auto;
+  background: var(--panel);
+  border-radius: 18px;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.03);
+  transition: box-shadow .18s ease, transform .12s ease;
+}
+
+/* NAV LINK HOVER (restores hover effect) */
+.header-inner .nav-list a {
+  color: var(--text);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background .18s ease, color .18s ease, transform .12s ease;
+}
+
+/* visible hover + slight lift */
+.header-inner .nav-list a:hover,
+.header-inner .nav-list a:focus {
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+  transform: translateY(-2px);
+  outline: none;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+}
+
+/* mobile */
+@media (max-width: 760px){
+  .header-inner{
+    width: 95%;
+    padding: 8px 12px;
+  }
+  .site-header { top: 6px; }
+}
+/* CENTER Download button inside resume card */
+.resume-card .actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 14px;
+}
+
+/* fallback for older class name */
+.download { margin: 12px auto !important; display: inline-flex !important; }
+/* CONNECT: keep title left, center icons/text below it */
+#connect .secondScreen {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+/* Keep the Connect title left-aligned */
+#connect h2 {
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+/* center the icon block */
+#connect .social,
+#connect .socialIcons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin-top: 10px;
+}
+
+/* bigger icons */
+#connect .social a svg,
+#connect .socialIcons a svg {
+  width: 30px;
+  height: 30px;
+  display: block;
+}
+/* ensure page content isn't hidden under the sticky header */
+:root { --site-header-height: 64px; } /* tweak value if your header size differs */
+body { padding-top: calc(var(--site-header-height) - 12px); }
+
+
+/* NAV BRAND: pointer + subtle hover so it feels like a button */
+.header-inner .brand,
+.header-inner .brand:link,
+.header-inner .brand:visited {
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--text);
+  transition: transform .14s ease, color .12s ease;
+}
+.header-inner .brand:hover,
+.header-inner .brand:focus {
+  transform: translateY(-2px);
+  color: var(--accent, #f1f1f1);
+  outline: none;
+}
+
+/* SOCIAL ICON HOVER (connect area) */
+/* slightly lift + scale + colored glow using currentColor so icons pick up --accent if used */
+#connect .social a,
+#connect .socialIcons a {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  transition: transform .16s ease, filter .16s ease, color .16s ease;
+  color: var(--text); /* default */
+}
+#connect .social a:hover,
+#connect .socialIcons a:hover,
+#connect .social a:focus,
+#connect .socialIcons a:focus {
+  transform: translateY(-4px) scale(1.08);
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.35));
+  color: var(--accent, #7c5cff); /* uses accent if set, else violet */
+  outline: none;
+}
+
+/* If you'd like icon-specific color on hover, you can set per-icon --accent inline:
+   <a style="--accent:#ea2b2b">...</a> and use color:var(--accent) on hover above. */
